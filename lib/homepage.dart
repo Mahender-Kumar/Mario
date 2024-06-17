@@ -50,6 +50,16 @@ class _MyHomePageState extends State<MyHomePage> {
   void moveRight() {
     direction = 'right';
     midrun = !midrun;
+    Timer.periodic(Duration(milliseconds: 50), (timer) {
+      if (MyButton().userIsHoldingButton() == true) {
+        setState(() {
+          marioX += 0.02;
+          midrun = !midrun;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
 
     setState(() {
       marioX += 0.02;
@@ -59,6 +69,16 @@ class _MyHomePageState extends State<MyHomePage> {
   void moveLeft() {
     direction = 'left';
     midrun = !midrun;
+    Timer.periodic(Duration(milliseconds: 50), (timer) {
+      if (MyButton().userIsHoldingButton() == true) {
+        setState(() {
+          marioX -= 0.02;
+          midrun = !midrun;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
 
     setState(() {
       marioX -= 0.02;
@@ -96,12 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       jump();
-                    //     },
-                    //     child: Icon(Icons.abc)),
-
                     MyButton(
                       child: Icon(
                         Icons.arrow_back,
