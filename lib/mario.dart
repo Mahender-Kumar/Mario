@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Mario extends StatelessWidget {
-  final direction;
-  final midrun;
-  final size;
+  final dynamic direction;
+  final dynamic midrun;
+  final  dynamic size;
 
   const Mario({super.key, this.direction, this.midrun, this.size});
 
