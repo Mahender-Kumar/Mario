@@ -8,6 +8,6 @@ class Mushroom extends StatelessWidget {
     return Container(
         width: 35,
         height: 35,
-        child: Image.asset('assets/images/mushroon.png'));
+        child: Image.asset('assets/images/mushroom.png'));
   }
 }

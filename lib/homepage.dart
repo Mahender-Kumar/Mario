@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mario/button.dart';
 import 'package:mario/jummpinmario.dart';
 import 'package:mario/mario.dart';
+import 'package:mario/mushroom.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -14,8 +15,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double marioX = 0;
+  static double marioX = 0;
   static double marioY = 1;
+  static double mariosize = 50;
+  static double shroomX = 0.5;
+  static double shroomY = 1;
   double time = 0;
   double height = 0;
   double initialHeight = marioY;
@@ -28,6 +32,15 @@ class _MyHomePageState extends State<MyHomePage> {
       fontSize: 20,
     ),
   );
+
+  void checkIfAteShroom() {
+    if ((marioX - shroomX).abs() < 0.05 && (marioY - shroomY).abs() < 0.05) {
+      setState(() {
+        shroomX = 2;
+        mariosize = 100;
+      });
+    }
+  }
 
   void preJump() {
     time = 0;
@@ -60,8 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void moveRight() {
     direction = 'right';
     midrun = !midrun;
+    checkIfAteShroom();
     Timer.periodic(Duration(milliseconds: 50), (timer) {
-      if (MyButton().userIsHoldingButton() == true) {
+      if (MyButton().userIsHoldingButton() == true && marioX + 0.02 < 1) {
         setState(() {
           marioX += 0.02;
           midrun = !midrun;
@@ -70,17 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
         timer.cancel();
       }
     });
-
-    setState(() {
-      marioX += 0.02;
-    });
   }
 
   void moveLeft() {
     direction = 'left';
     midrun = !midrun;
+    checkIfAteShroom();
+
     Timer.periodic(Duration(milliseconds: 50), (timer) {
-      if (MyButton().userIsHoldingButton() == true) {
+      if (MyButton().userIsHoldingButton() == true && marioX - 0.02 > -1) {
         setState(() {
           marioX -= 0.02;
           midrun = !midrun;
@@ -88,10 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         timer.cancel();
       }
-    });
-
-    setState(() {
-      marioX -= 0.02;
     });
   }
 
@@ -112,13 +120,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     duration: const Duration(microseconds: 0),
                     child: midjump
                         ? JumpingMario(
+                            size: mariosize,
                             direction: direction,
                           )
                         : Mario(
                             direction: direction,
                             midrun: midrun,
+                            size: mariosize,
                           ),
                   ),
+                ),
+                Container(
+                  alignment: Alignment(shroomX, shroomY),
+                  child: Mushroom(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
