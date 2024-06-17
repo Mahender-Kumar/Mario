@@ -10,7 +10,7 @@ class Mario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return direction == 'right'
-        ? Container(
+        ? SizedBox(
             width: size,
             height: size,
             child: midrun
@@ -20,7 +20,7 @@ class Mario extends StatelessWidget {
         : Transform(
             alignment: Alignment.center,
             transform: Matrix4.rotationY(3.14),
-            child: Container(
+            child: SizedBox(
               width: size,
               height: size,
               child: midrun

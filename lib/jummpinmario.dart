@@ -8,14 +8,14 @@ class JumpingMario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return direction == 'right'
-        ? Container(
+        ? SizedBox(
             width: size,
             height: size,
             child: Image.asset('assets/images/mario_running.png'))
         : Transform(
             alignment: Alignment.center,
             transform: Matrix4.rotationY(3.14),
-            child: Container(
+            child: SizedBox(
                 width: size,
                 height: size,
                 child: Image.asset('assets/images/mario_running.png')),
