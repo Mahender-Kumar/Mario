@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mario/button.dart';
+import 'package:mario/jummpinmario.dart';
 import 'package:mario/mario.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -27,22 +28,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void jump() {
     preJump();
+    midjump = true;
     Timer.periodic(Duration(milliseconds: 50), (timer) {
       time += 0.05;
       height = -4.9 * time * time + 5 * time;
 
       if (initialHeight - height > 1) {
+        midjump = false;
         setState(() {
           marioY = 1;
-          timer.cancel();
         });
+        timer.cancel();
       } else {
         setState(() {
           marioY = initialHeight - height;
         });
       }
     });
-
   }
 
   void moveRight() {
@@ -76,10 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: AnimatedContainer(
                 alignment: Alignment(marioX, marioY),
                 duration: const Duration(microseconds: 0),
-                child: Mario(
-                  direction: direction,
-                  midrun: midrun,
-                ),
+                child: midjump
+                    ? JumpingMario()
+                    : Mario(
+                        direction: direction,
+                        midrun: midrun,
+                      ),
               ),
             ),
           ),
