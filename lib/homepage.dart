@@ -93,20 +93,24 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Expanded(
             flex: 4,
-            child: Container(
-              color: Colors.blue,
-              child: AnimatedContainer(
-                alignment: Alignment(marioX, marioY),
-                duration: const Duration(microseconds: 0),
-                child: midjump
-                    ? JumpingMario(
-                        direction: direction,
-                      )
-                    : Mario(
-                        direction: direction,
-                        midrun: midrun,
-                      ),
-              ),
+            child: Stack(
+              children: [
+                Container(
+                  color: Colors.blue,
+                  child: AnimatedContainer(
+                    alignment: Alignment(marioX, marioY),
+                    duration: const Duration(microseconds: 0),
+                    child: midjump
+                        ? JumpingMario(
+                            direction: direction,
+                          )
+                        : Mario(
+                            direction: direction,
+                            midrun: midrun,
+                          ),
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
