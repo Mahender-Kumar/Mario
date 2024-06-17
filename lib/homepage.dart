@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mario/button.dart';
 import 'package:mario/jummpinmario.dart';
 import 'package:mario/mario.dart';
@@ -21,30 +22,39 @@ class _MyHomePageState extends State<MyHomePage> {
   String direction = 'right';
   bool midrun = false;
   bool midjump = false;
+  var gameFont = GoogleFonts.pressStart2p(
+    textStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+    ),
+  );
+
   void preJump() {
     time = 0;
     initialHeight = marioY;
   }
 
   void jump() {
-    preJump();
-    midjump = true;
-    Timer.periodic(Duration(milliseconds: 50), (timer) {
-      time += 0.05;
-      height = -4.9 * time * time + 5 * time;
+    if (midjump == false) {
+      midjump = true;
+      preJump();
+      Timer.periodic(Duration(milliseconds: 50), (timer) {
+        time += 0.05;
+        height = -4.9 * time * time + 5 * time;
 
-      if (initialHeight - height > 1) {
-        midjump = false;
-        setState(() {
-          marioY = 1;
-        });
-        timer.cancel();
-      } else {
-        setState(() {
-          marioY = initialHeight - height;
-        });
-      }
-    });
+        if (initialHeight - height > 1) {
+          midjump = false;
+          setState(() {
+            marioY = 1;
+          });
+          timer.cancel();
+        } else {
+          setState(() {
+            marioY = initialHeight - height;
+          });
+        }
+      });
+    }
   }
 
   void moveRight() {
@@ -108,6 +118,50 @@ class _MyHomePageState extends State<MyHomePage> {
                             direction: direction,
                             midrun: midrun,
                           ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Mario',
+                            style: gameFont,
+                          ),
+                          Text(
+                            '0000',
+                            style: gameFont,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'World',
+                            style: gameFont,
+                          ),
+                          Text(
+                            '1-1',
+                            style: gameFont,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'Time',
+                            style: gameFont,
+                          ),
+                          Text(
+                            '9999',
+                            style: gameFont,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
