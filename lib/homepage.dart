@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool midrun = false;
   bool midjump = false;
   var gameFont = GoogleFonts.pressStart2p(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
       color: Colors.white,
       fontSize: 20,
     ),
@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (midjump == false) {
       midjump = true;
       preJump();
-      Timer.periodic(Duration(milliseconds: 50), (timer) {
+      Timer.periodic(const Duration(milliseconds: 50), (timer) {
         time += 0.05;
         height = -4.9 * time * time + 5 * time;
 
@@ -74,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
     direction = 'right';
     midrun = !midrun;
     checkIfAteShroom();
-    Timer.periodic(Duration(milliseconds: 50), (timer) {
-      if (MyButton().userIsHoldingButton() == true && marioX + 0.02 < 1) {
+    Timer.periodic(const Duration(milliseconds: 50), (timer) {
+      if (const MyButton().userIsHoldingButton() == true && marioX + 0.02 < 1) {
         setState(() {
           marioX += 0.02;
           midrun = !midrun;
@@ -91,8 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
     midrun = !midrun;
     checkIfAteShroom();
 
-    Timer.periodic(Duration(milliseconds: 50), (timer) {
-      if (MyButton().userIsHoldingButton() == true && marioX - 0.02 > -1) {
+    Timer.periodic(const Duration(milliseconds: 50), (timer) {
+      if (const MyButton().userIsHoldingButton() == true && marioX - 0.02 > -1) {
         setState(() {
           marioX -= 0.02;
           midrun = !midrun;
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   alignment: Alignment(shroomX, shroomY),
-                  child: Mushroom(),
+                  child: const Mushroom(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
@@ -189,25 +189,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     MyButton(
-                      child: Icon(
+                      function: moveLeft,
+                      child: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                       ),
-                      function: moveLeft,
                     ),
                     MyButton(
-                      child: Icon(
+                      function: jump,
+                      child: const Icon(
                         Icons.arrow_upward,
                         color: Colors.white,
                       ),
-                      function: jump,
                     ),
                     MyButton(
-                      child: Icon(
+                      function: moveRight,
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.white,
                       ),
-                      function: moveRight,
                     ),
                   ],
                 )),
